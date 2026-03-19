@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Blendify product detail — portable blenders for healthy living"/>
+  <title>Product – Blendify</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="../css/loader.css"/>
+  <link rel="icon" href="../public/images/favicon.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet"/>
+  <style>
+    .product-detail { display:grid; grid-template-columns:1fr 1fr; gap:60px; padding:60px 0; align-items:start; }
+    .product-gallery { position:sticky; top:calc(var(--nav-height)+20px); }
+
+    /* Main image */
+    .product-img-main {
+      aspect-ratio: 1;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      cursor: zoom-in;
+    }
+    .product-img-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .product-img-main:hover img { transform: scale(1.06); }
+
+    /* Thumbnails */
+    .product-thumbs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .product-thumb {
+      width: 72px; height: 72px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid var(--gray-200);
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .product-thumb.active,
+    .product-thumb:hover { border-color: var(--lime); }
+    .product-thumb img { width:100%;height:100%;object-fit:cover; }
+
+    .product-info-block h1 { font-family:var(--font-display); font-size:2.2rem; letter-spacing:2px; margin:16px 0; }
+    .product-stars { font-size:1.1rem; margin:12px 0; }
+    .product-desc { color:var(--text-muted); line-height:1.8; margin:20px 0; }
+    .product-price-lg { font-size:1.8rem; font-weight:700; margin:24px 0; }
+    .product-specs { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:24px 0; }
+    .spec { background:var(--gray-50); padding:16px; border-radius:var(--radius-md); border:1px solid var(--gray-200); }
+    .spec-label { font-size:.75rem; color:var(--text-muted); font-weight:700; margin-bottom:6px; }
+    .spec-value { font-size:1rem; font-weight:600; }
+    .product-actions { display:flex; gap:12px; margin:32px 0; flex-wrap:wrap; }
+    .qty-picker { display:flex; align-items:center; gap:12px; }
+    .qty-btn { width:40px; height:40px; border:1px solid var(--gray-200); border-radius:4px; display:flex; align-items:center; justify-content:center; background:var(--white); cursor:pointer; transition:var(--transition); }
+    .qty-btn:hover { border-color:var(--lime); }
+
+    /* Recommender Sections */
+    .related-section { margin-top:80px; }
+    .related-section h2 { font-family:var(--font-display); font-size:1.8rem; letter-spacing:2px; margin-bottom:8px; }
+    .related-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:32px; }
+
+    /* You May Also Like */
+    .ymyl-section { margin-top:60px; padding:60px 0; background:var(--gray-50); }
+    .ymyl-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:32px; }
+
+    /* Frequently Bought Together */
+    .fbt-product-section { margin-top:60px; padding:60px 0; }
+    .fbt-wrap {
+      display:flex; gap:20px; align-items:center; flex-wrap:wrap;
+      justify-content:flex-start; margin-top:32px;
+    }
+    .fbt-item { background:var(--white); border:1px solid var(--gray-200); border-radius:var(--radius-lg); padding:20px; display:flex; flex-direction:column; align-items:center; gap:10px; width:160px; text-align:center; transition:var(--transition); }
+    .fbt-item:hover { border-color:var(--lime); box-shadow:var(--shadow-md); transform:translateY(-4px); }
+    .fbt-img { width:80px; height:80px; border-radius:12px; overflow:hidden; }
+    .fbt-img img { width:100%;height:100%;object-fit:cover; }
+    .fbt-info h5 { font-size:.82rem; font-weight:700; margin-bottom:4px; }
+    .fbt-plus { font-size:1.5rem; color:var(--lime); font-weight:700; }
+
+    /* Top Picks */
+    .top-picks-section { padding:60px 0; }
+
+    /* Image lightbox */
+    .lightbox-overlay { position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:800;display:none;align-items:center;justify-content:center;padding:24px;animation:fadeIn .3s ease; }
+    .lightbox-overlay.open { display:flex; }
+    .lightbox-inner { position:relative;max-width:900px;width:100%; }
+    .lightbox-inner img { width:100%;height:auto;max-height:85vh;object-fit:contain;border-radius:16px;display:block; }
+    .lightbox-close { position:absolute;top:-44px;right:0;background:none;border:none;color:white;font-size:2rem;cursor:pointer; }
+
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    @media(max-width:900px) { .product-detail{grid-template-columns:1fr;} .product-gallery{position:static;} .related-grid,.ymyl-grid{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:480px) { .product-actions{flex-direction:column;} .related-grid,.ymyl-grid{grid-template-columns:1fr;} .fbt-item{width:130px;} }
+  </style>
+</head>
+<body>
+  <div id="globalLoader" class="loader-wrapper"><div class="loader"></div></div>
+
+  <div class="announcement-bar">
+    🎉 Free shipping on all orders over 200L &nbsp;|&nbsp; Use code <strong>BLEND10</strong> for 10% off
+    <button class="ann-close" onclick="this.parentElement.style.display='none'">×</button>
+  </div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <svg width="28" height="28" viewBox="0 0 28 28"><path d="M14 2C8 2 4 10 4 17a10 10 0 0020 0C24 10 20 2 14 2z" fill="#C5E710"/><path d="M10 18 Q14 10 18 18" stroke="#010A00" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        BLENDIFY
+      </a>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Homepage</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-icon-btn cart-btn" id="cartToggle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <span class="cart-badge" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header"><h3>Your Cart</h3><button onclick="closeCart()">×</button></div>
+    <div class="cart-items"></div>
+    <div class="cart-footer"></div>
+  </aside>
+
+  <div class="page-header">
+    <div class="container">
+      <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><a href="shop.html">Shop</a><span>/</span><span id="bcTitle">Product</span></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="product-detail">
+      <!-- Gallery -->
+      <div class="product-gallery">
+        <div class="product-img-main" id="mainImgWrap" onclick="openProdLightbox()">
+          <img id="mainImg" src="" alt="Product Image" loading="eager">
+        </div>
+        <div class="product-thumbs" id="productThumbs"></div>
+        <p style="font-size:.75rem;color:var(--text-muted);text-align:center;">🔍 Click image to enlarge</p>
+      </div>
+
+      <!-- Info -->
+      <div class="product-info-block" data-fade>
+        <h1 id="prodName">Loading…</h1>
+        <div class="product-stars" id="prodStars">★★★★★ <small>(0 reviews)</small></div>
+        <p class="product-desc" id="prodDesc">Product description.</p>
+        <div class="product-price-lg" id="prodPrice">—</div>
+        <div class="product-specs" id="prodSpecs"></div>
+        <div class="product-actions">
+          <div class="qty-picker">
+            <button class="qty-btn" onclick="qtyChange(-1)">−</button>
+            <input type="number" value="1" min="1" id="qtyInput" style="width:50px;text-align:center;border:1px solid var(--gray-200);border-radius:4px;padding:8px;"/>
+            <button class="qty-btn" onclick="qtyChange(1)">+</button>
+          </div>
+          <button class="btn-primary" id="addBtn" style="flex:1;">🛒 Add to Cart</button>
+        </div>
+        <div style="padding:20px;background:var(--gray-50);border-radius:var(--radius-md);margin-top:8px;border:1px solid var(--gray-200);">
+          <div style="display:flex;gap:12px;margin-bottom:12px;"><span>🚚</span><div><strong>Free Shipping</strong><p style="font-size:.85rem;color:var(--text-muted);">On orders over 200L</p></div></div>
+          <div style="display:flex;gap:12px;"><span>↩️</span><div><strong>30-Day Returns</strong><p style="font-size:.85rem;color:var(--text-muted);">Hassle-free returns</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECOMMENDER: Frequently Bought Together -->
+    <div class="fbt-product-section">
+      <div class="section-label">Customers Also Bought</div>
+      <h2 style="font-family:var(--font-display);font-size:1.8rem;letter-spacing:2px;">FREQUENTLY BOUGHT TOGETHER</h2>
+      <p style="color:var(--text-muted);font-size:.88rem;margin-top:8px;">Add these to your cart and save on your order!</p>
+      <div class="fbt-wrap" id="fbtGrid"></div>
+    </div>
+
+    <!-- RECOMMENDER: Related Products (same category) -->
+    <div class="related-section">
+      <div class="section-label">Recommender System</div>
+      <h2>YOU MIGHT ALSO LIKE</h2>
+      <p style="color:var(--text-muted);font-size:.88rem;margin-top:8px;">Based on the same category as this product.</p>
+      <div class="related-grid" id="relatedGrid"></div>
+    </div>
+  </div>
+
+  <!-- RECOMMENDER: You May Also Like (price-based) -->
+  <section class="ymyl-section">
+    <div class="container">
+      <div class="section-label">Top Picks For You</div>
+      <h2 class="section-title">CUSTOMERS WHO VIEWED THIS ALSO BOUGHT</h2>
+      <p style="color:var(--text-muted);font-size:.88rem;margin-top:8px;text-align:center;">Personalized picks based on price range and popularity.</p>
+      <div class="ymyl-grid" id="ymylGrid"></div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter-section" style="margin-top:0;">
+    <div class="container">
+      <div class="newsletter-inner">
+        <div><h2>STAY IN THE BLEND</h2><p>Get new product drops and exclusive deals in your inbox.</p></div>
+        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+          <input type="email" placeholder="Your email address" required/>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none;padding-top:0;">
+        <span>© 2025 Blendify. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+  <!-- IMAGE LIGHTBOX -->
+  <div class="lightbox-overlay" id="lightboxOverlay" onclick="if(event.target===this)closeProdLightbox()">
+    <div class="lightbox-inner">
+      <button class="lightbox-close" onclick="closeProdLightbox()">×</button>
+      <img src="" alt="" id="lightboxImg">
+    </div>
+  </div>
+
+  <script defer src="../js/main.js"></script>
+  <script defer src="../js/products.js"></script>
+  <script defer src="../js/cart.js"></script>
+  <script>
+    let currentProduct = null;
+
+    function qtyChange(delta) {
+      const input = document.getElementById("qtyInput");
+      input.value = Math.max(1, parseInt(input.value || 1) + delta);
+    }
+
+    function openProdLightbox() {
+      if (!currentProduct) return;
+      const overlay = document.getElementById('lightboxOverlay');
+      document.getElementById('lightboxImg').src = currentProduct.image;
+      document.getElementById('lightboxImg').alt = currentProduct.name;
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeProdLightbox() {
+      document.getElementById('lightboxOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Thumbnail switching
+    function setThumb(src) {
+      document.getElementById('mainImg').src = src;
+    }
+
+    function buildThumbs(product) {
+      const wrap = document.getElementById('productThumbs');
+      // Use lifestyle images as additional gallery views
+      const thumbSrcs = [
+        product.image,
+        '../images/photo_1_2026-03-18_10-56-41.jpg',
+        '../images/photo_2_2026-03-18_10-56-41.jpg',
+      ];
+      wrap.innerHTML = thumbSrcs.map((src, i) => `
+        <div class="product-thumb ${i===0?'active':''}" onclick="switchThumb(this,'${src}')">
+          <img src="${src}" alt="View ${i+1}" loading="lazy">
+        </div>
+      `).join('');
+    }
+
+    function switchThumb(el, src) {
+      document.querySelectorAll('.product-thumb').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('mainImg').src = src;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const pid = new URLSearchParams(window.location.search).get("id");
+      if (pid && typeof PRODUCTS !== "undefined") {
+        currentProduct = PRODUCTS.find(p => p.id === parseInt(pid));
+        if (currentProduct) {
+          document.title = `${currentProduct.name} – Blendify`;
+          document.getElementById("bcTitle").textContent = currentProduct.name;
+          document.getElementById("prodName").textContent = currentProduct.name;
+          document.getElementById("prodStars").innerHTML = `${currentProduct.stars} <small>(${currentProduct.reviews} reviews)</small>`;
+          document.getElementById("prodDesc").textContent = currentProduct.description;
+          const oldPrice = currentProduct.oldPrice ? `<span class="price-old">${currentProduct.oldPrice.toFixed(2)}L</span>` : "";
+          document.getElementById("prodPrice").innerHTML = `${currentProduct.price.toFixed(2)}L ${oldPrice}`;
+          document.getElementById("mainImg").src = currentProduct.image;
+          document.getElementById("mainImg").alt = currentProduct.name;
+          document.getElementById("mainImgWrap").style.background = currentProduct.bg;
+
+          buildThumbs(currentProduct);
+
+          document.getElementById("prodSpecs").innerHTML = `
+            <div class="spec"><div class="spec-label">Capacity</div><div class="spec-value">450ml BPA-Free</div></div>
+            <div class="spec"><div class="spec-label">Power</div><div class="spec-value">USB-C Rechargeable</div></div>
+            <div class="spec"><div class="spec-label">Runtime</div><div class="spec-value">20-30 blends/charge</div></div>
+            <div class="spec"><div class="spec-label">Weight</div><div class="spec-value">420g</div></div>
+          `;
+          document.getElementById("addBtn").onclick = () => {
+            const qty = parseInt(document.getElementById("qtyInput").value) || 1;
+            addToCart(currentProduct.id, qty);
+            document.getElementById("qtyInput").value = "1";
+          };
+
+          // Recommender: Related Products
+          if (typeof renderRelatedProducts === 'function') {
+            renderRelatedProducts('relatedGrid', currentProduct.category, currentProduct.id, 4);
+          }
+
+          // Recommender: You May Also Like
+          if (typeof getYouMayLike === 'function') {
+            const ymylEl = document.getElementById('ymylGrid');
+            if (ymylEl) {
+              const picks = getYouMayLike(currentProduct.id, 4);
+              if (picks && typeof productCardHTML === 'function') {
+                ymylEl.innerHTML = picks.map(p => productCardHTML(p)).join('');
+                if (typeof attachCardListeners === 'function') attachCardListeners();
+              }
+            }
+          }
+
+          // Frequently Bought Together
+          if (typeof getFrequentlyBoughtWith === 'function') {
+            const fbt = document.getElementById('fbtGrid');
+            if (fbt) {
+              const items = getFrequentlyBoughtWith(currentProduct.id, 3);
+              if (items) {
+                fbt.innerHTML = items.map(p => `
+                  <div class="fbt-item">
+                    <div class="fbt-img"><img src="${p.image}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
+                    <div class="fbt-info"><h5>${p.name}</h5><span class="price-main">${p.price.toFixed(2)}L</span></div>
+                    <button class="btn-ghost" style="font-size:.78rem;padding:8px 14px;" onclick="addToCart(${p.id})">+ Add</button>
+                  </div>
+                `).join('<span class="fbt-plus">＋</span>');
+              }
+            }
+          }
+        } else {
+          try { document.getElementById("prodName").textContent = "Product not found"; }catch(e){}
+        }
+      }
+    });
+  </script>
+</body>
+</html>

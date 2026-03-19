@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="About Blendify — our story, mission, and the team behind the portable blender that's changing healthy living."/>
+  <title>About Us – Blendify</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="../css/loader.css"/>
+  <link rel="icon" href="../public/images/favicon.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet"/>
+  <style>
+    /* About Intro */
+    .about-intro { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; padding:80px 0; }
+    .about-intro h2 { font-family:var(--font-display); font-size:clamp(2.2rem,4vw,3.2rem); letter-spacing:2px; margin-bottom:24px; }
+    .about-intro p { color:var(--text-muted); line-height:1.8; margin-bottom:16px; font-size:.95rem; }
+
+    /* About visual */
+    .about-visual {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 1;
+      position: relative;
+    }
+    .about-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      display: block;
+    }
+    .about-visual:hover img { transform: scale(1.04); }
+    .about-visual-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(197,231,16,0.15) 0%, rgba(0,0,0,0.4) 100%);
+    }
+
+    /* Stats bar */
+    .stats-bar {
+      display: flex;
+      gap: 0;
+      background: var(--black);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin: 0 0 80px;
+    }
+    .stat-block {
+      flex: 1;
+      padding: 36px 24px;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .stat-block:last-child { border-right: none; }
+    .stat-block strong { display:block; font-family:var(--font-display); font-size:2.4rem; color:var(--lime); letter-spacing:2px; }
+    .stat-block span { font-size:.82rem; color:rgba(255,255,255,0.5); }
+
+    /* Values */
+    .values-section { padding:80px 0; background:var(--gray-50); text-align:center; }
+    .values-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:48px; }
+    .value-card { background:var(--white); border-radius:var(--radius-lg); padding:40px 32px; border:1px solid var(--gray-200); transition:var(--transition); }
+    .value-card:hover { transform:translateY(-6px); box-shadow:var(--shadow-md); border-color:var(--lime); }
+    .value-img { width:64px; height:64px; border-radius:50%; overflow:hidden; margin:0 auto 20px; border:3px solid var(--lime); }
+    .value-img img { width:100%;height:100%;object-fit:cover; }
+    .value-card h4 { font-family:var(--font-display); font-size:1.4rem; letter-spacing:1px; margin-bottom:12px; }
+    .value-card p { font-size:.85rem; color:var(--text-muted); line-height:1.7; }
+
+    /* Team */
+    .team-section { padding:80px 0; }
+    .team-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin-top:48px; }
+    .team-card { text-align:center; }
+    .team-avatar {
+      width:100%; aspect-ratio:1; border-radius:var(--radius-lg);
+      overflow: hidden; margin-bottom:16px;
+      border:3px solid var(--gray-200);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .team-avatar img { width:100%;height:100%;object-fit:cover;display:block; transition:transform 0.4s ease; }
+    .team-card:hover .team-avatar { border-color:var(--lime); transform:translateY(-4px); }
+    .team-card:hover .team-avatar img { transform:scale(1.06); }
+    .team-card h4 { font-weight:700; font-size:.95rem; margin-bottom:4px; }
+    .team-card .role { font-size:.8rem; color:var(--text-muted); }
+
+    /* 7Ps Marketing Section */
+    .marketing-section { padding:80px 0; background:var(--black); color:var(--white); }
+    .marketing-section h2 { font-family:var(--font-display); font-size:2.2rem; letter-spacing:3px; margin-bottom:16px; color:var(--lime); }
+    .marketing-section .section-label { color:rgba(255,255,255,0.5); }
+    .marketing-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:40px; }
+    .marketing-p {
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(197,231,16,0.2);
+      border-radius:var(--radius-md);
+      padding:24px 20px;
+      transition:var(--transition);
+    }
+    .marketing-p:hover { background:rgba(197,231,16,0.08); border-color:rgba(197,231,16,0.5); transform:translateY(-4px); }
+    .marketing-p .p-tag { font-family:var(--font-display); font-size:1.8rem; color:var(--lime); margin-bottom:8px; }
+    .marketing-p h5 { font-size:.88rem; font-weight:700; margin-bottom:6px; }
+    .marketing-p p { font-size:.78rem; color:rgba(255,255,255,0.5); line-height:1.6; }
+
+    /* Model */
+    .model-section { padding:80px 0; background:var(--gray-50); text-align:center; }
+    .model-section h2 { font-family:var(--font-display); font-size:2.2rem; letter-spacing:3px; margin-bottom:16px; }
+    .model-section p { color:var(--text-muted); max-width:600px; margin:0 auto 40px; font-size:.95rem; line-height:1.75; }
+    .model-badges { display:flex; justify-content:center; gap:16px; flex-wrap:wrap; }
+    .model-badge { background:rgba(197,231,16,0.1); border:1px solid rgba(197,231,16,0.4); color:var(--olive-dark); padding:12px 24px; border-radius:var(--radius-full); font-size:.85rem; font-weight:700; }
+
+    /* Image showcase */
+    .showcase-strip { padding:60px 0; }
+    .showcase-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin-top:36px; }
+    .showcase-tile { border-radius:12px; overflow:hidden; aspect-ratio:1; cursor:pointer; }
+    .showcase-tile img { width:100%;height:100%;object-fit:cover;transition:transform 0.4s ease; }
+    .showcase-tile:hover img { transform:scale(1.08); }
+
+    @media(max-width:900px) { .about-intro{grid-template-columns:1fr;} .values-grid,.team-grid,.marketing-grid{grid-template-columns:1fr 1fr;} .stats-bar{flex-direction:column;} .showcase-grid{grid-template-columns:repeat(3,1fr);} }
+    @media(max-width:480px) { .team-grid{grid-template-columns:1fr 1fr;} .marketing-grid{grid-template-columns:1fr 1fr;} .showcase-grid{grid-template-columns:repeat(2,1fr);} }
+  </style>
+</head>
+<body>
+  <div id="globalLoader" class="loader-wrapper"><div class="loader"></div></div>
+
+  <div class="announcement-bar">
+    🎉 Free shipping on all orders &nbsp;|&nbsp; <strong>BLEND10</strong> for 10% off
+    <button class="ann-close" onclick="this.parentElement.style.display='none'">×</button>
+  </div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <svg width="28" height="28" viewBox="0 0 28 28"><path d="M14 2C8 2 4 10 4 17a10 10 0 0020 0C24 10 20 2 14 2z" fill="#C5E710"/><path d="M10 18 Q14 10 18 18" stroke="#010A00" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        BLENDIFY
+      </a>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Homepage</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="about.html" class="active">About Us</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="account.html" class="nav-icon-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <span class="nav-label">Log In</span>
+        </a>
+        <button class="nav-icon-btn cart-btn" id="cartToggle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <span class="cart-badge" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header"><h3>Your Cart</h3><button onclick="closeCart()">×</button></div>
+    <div class="cart-items"></div>
+    <div class="cart-footer"></div>
+  </aside>
+
+  <div class="page-header">
+    <div class="container">
+      <h1>ABOUT BLENDIFY</h1>
+      <p>Our story, mission, and the team behind the blend</p>
+      <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span>About Us</div>
+    </div>
+  </div>
+
+  <!-- STORY INTRO -->
+  <div class="container">
+    <div class="about-intro">
+      <div>
+        <div class="section-label">Our Story</div>
+        <h2>WE BELIEVE HEALTHY LIVING SHOULD GO WHEREVER YOU GO</h2>
+        <p>Blendify was founded in 2022 by a group of fitness enthusiasts who were tired of skipping their morning smoothies just because they were always on the move. We set out to build the perfect portable blender — powerful enough to handle frozen fruit, compact enough to fit in a gym bag, and beautiful enough to carry with pride.</p>
+        <p>Today, Blendify serves over 50,000 customers across the country. Every product we design starts with the same question: <em>does this make healthy living easier for real people with real, busy lives?</em></p>
+        <p>Our <strong>Business Model (B2C)</strong> is direct-to-consumer — we design, manufacture, and sell directly to our customers online, cutting out the middleman to keep prices fair and build a direct relationship with every person who blends with us.</p>
+        <a href="shop.html" class="btn-primary" style="margin-top:16px;">Shop Our Products</a>
+      </div>
+      <div class="about-visual" data-fade>
+        <img src="../images/photo_4_2026-03-18_10-56-41.jpg" alt="Blendify brand story" loading="lazy" style="object-fit: contain; background: var(--gray-50); padding: 10px; width: 100%; height: 100%; border-radius: 16px;">
+        <div class="about-visual-overlay"></div>
+      </div>
+    </div>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar" data-fade>
+      <div class="stat-block"><strong>50K+</strong><span>Happy Customers</span></div>
+      <div class="stat-block"><strong>4.9★</strong><span>Average Rating</span></div>
+      <div class="stat-block"><strong>30 Days</strong><span>Money-Back Guarantee</span></div>
+      <div class="stat-block"><strong>2022</strong><span>Founded</span></div>
+    </div>
+  </div>
+
+  <!-- CORE VALUES -->
+  <section class="values-section">
+    <div class="container">
+      <div class="section-label">What Drives Us</div>
+      <h2 class="section-title">OUR CORE VALUES</h2>
+      <div class="values-grid">
+        <div class="value-card reveal">
+          <div class="value-img">
+            <img src="../images/photo_1_2026-03-18_09-07-41.jpg" alt="Health First" loading="lazy">
+          </div>
+          <h4>HEALTH FIRST</h4>
+          <p>Every product we build is designed with your health in mind. BPA-free materials, easy-clean designs, and no compromises on quality.</p>
+        </div>
+        <div class="value-card reveal">
+          <div class="value-img">
+            <img src="../images/photo_2_2026-03-18_09-07-41.jpg" alt="Sustainability Blender" loading="lazy">
+          </div>
+          <h4>SUSTAINABILITY</h4>
+          <p>We use responsibly sourced materials, minimal packaging, and rechargeable technology to reduce our environmental footprint.</p>
+        </div>
+        <div class="value-card reveal">
+          <div class="value-img">
+            <img src="../images/photo_3_2026-03-18_09-07-41.jpg" alt="Community" loading="lazy">
+          </div>
+          <h4>COMMUNITY</h4>
+          <p>We're more than a brand. Our customer community shares recipes, tips, and success stories every day. You're part of the family.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team-section">
+    <div class="container">
+      <div class="section-label">The People</div>
+      <h2 class="section-title">MEET THE TEAM</h2>
+      <div class="team-grid">
+        <div class="team-card reveal">
+          <div class="team-avatar">
+            <img src="../images/photo_3_2026-03-18_10-15-58.jpg" alt="Alex Mensah — Founder & CEO" loading="lazy">
+          </div>
+          <h4>Alex Mensah</h4>
+          <p class="role">Founder &amp; CEO</p>
+        </div>
+        <div class="team-card reveal">
+          <div class="team-avatar">
+            <img src="../images/photo_2_2026-03-18_10-15-58.jpg" alt="Priya Singh — Head of Design" loading="lazy">
+          </div>
+          <h4>Priya Singh</h4>
+          <p class="role">Head of Design</p>
+        </div>
+        <div class="team-card reveal">
+          <div class="team-avatar">
+            <img src="../images/photo_1_2026-03-18_10-39-18.jpg" alt="Jordan Lee — Head of Engineering" loading="lazy">
+          </div>
+          <h4>Jordan Lee</h4>
+          <p class="role">Head of Engineering</p>
+        </div>
+        <div class="team-card reveal">
+          <div class="team-avatar">
+             <img src="../images/photo_2_2026-03-18_10-39-18.jpg" alt="Amara Osei — Nutrition Advisor" loading="lazy">
+          </div>
+          <h4>Amara Osei</h4>
+          <p class="role">Nutrition Advisor</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7Ps MARKETING MIX -->
+  <section class="marketing-section">
+    <div class="container">
+      <div class="section-label">E-Business Framework</div>
+      <h2>7Ps MARKETING MIX</h2>
+      <p style="color:rgba(255,255,255,0.5);font-size:.9rem;max-width:600px;line-height:1.75;">Our business strategy is built on the complete 7Ps Marketing Mix, ensuring every customer touchpoint is intentional and valuable.</p>
+      <div class="marketing-grid">
+        <div class="marketing-p reveal">
+          <div class="p-tag">P1</div>
+          <h5>Product</h5>
+          <p>Portable, smart, and commercial blenders. BPA-free, high-torque smart motors, and 6-blade systems with modern styling.</p>
+        </div>
+        <div class="marketing-p reveal">
+          <div class="p-tag">P2</div>
+          <h5>Price</h5>
+          <p>Competitive pricing from 15L to 520L. Bundle discounts, seasonal sales, and loyalty coupon codes like BLEND10.</p>
+        </div>
+        <div class="marketing-p reveal">
+          <div class="p-tag">P3</div>
+          <h5>Place</h5>
+          <p>100% online e-commerce. Fully responsive website accessible on mobile, tablet, and desktop — shop anytime, anywhere.</p>
+        </div>
+        <div class="marketing-p reveal">
+          <div class="p-tag">P4</div>
+          <h5>Promotion</h5>
+          <p>Newsletter campaigns, discount banners (BLEND10), featured items, blog content, and social media presence.</p>
+        </div>
+        <div class="marketing-p reveal">
+          <div class="p-tag">P5</div>
+          <h5>People</h5>
+          <p>Dedicated support team. Contact page with form, FAQ, live chat link, and direct customer service channels.</p>
+        </div>
+        <div class="marketing-p reveal">
+          <div class="p-tag">P6</div>
+          <h5>Process</h5>
+          <p>Smooth checkout flow: browse → add to cart → checkout → confirmation. Cart drawer with quantity control and order summary.</p>
+        </div>
+        <div class="marketing-p reveal">
+          <div class="p-tag">P7</div>
+          <h5>Physical Evidence</h5>
+          <p>Professional UI/UX design, verified customer testimonials, trust badges, and high-quality product imagery throughout the store.</p>
+        </div>
+        <div class="marketing-p reveal">
+          <div class="p-tag">🤖</div>
+          <h5>Recommender System</h5>
+          <p>AI-style product suggestions — related products, frequently bought together, best sellers — to enhance discoverability and increase sales.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMAGE SHOWCASE (uses all /images/ photos) -->
+  <section class="showcase-strip">
+    <div class="container">
+      <div class="section-label">Behind the Brand</div>
+      <h2 class="section-title">OUR WORLD IN PICTURES</h2>
+      <div class="showcase-grid">
+        <div class="showcase-tile"><img src="../images/photo_1_2026-03-18_10-25-39.jpg" alt="Blendify hero product" loading="lazy"></div>
+        <div class="showcase-tile"><img src="../images/photo_2_2026-03-18_10-25-39.jpg" alt="Blendify kiwi green blender" loading="lazy"></div>
+        <div class="showcase-tile"><img src="../images/photo_1_2026-03-18_10-39-18.jpg" alt="Blendify black blender" loading="lazy"></div>
+        <div class="showcase-tile"><img src="../images/photo_2_2026-03-18_10-39-18.jpg" alt="Blendify rose gold blender" loading="lazy"></div>
+        <div class="showcase-tile"><img src="../images/photo_3_2026-03-18_10-39-18.jpg" alt="Blendify blue blender" loading="lazy"></div>
+        <div class="showcase-tile"><img src="../images/photo_1_2026-03-18_10-48-50.jpg" alt="Blendify commercial blender" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUSINESS MODEL -->
+  <section class="model-section">
+    <div class="container">
+      <div class="section-label">Business Model</div>
+      <h2>B2C DIRECT-TO-CONSUMER</h2>
+      <p>Blendify operates as a Business-to-Consumer (B2C) e-commerce company. We design and manufacture our products in-house and sell them directly to end customers through our online store — no retail middlemen, no unnecessary markups.</p>
+      <div class="model-badges">
+        <span class="model-badge">🏭 Own Manufacturing</span>
+        <span class="model-badge">🛒 Direct Online Sales</span>
+        <span class="model-badge">📦 In-House Fulfillment</span>
+        <span class="model-badge">💬 Direct Customer Support</span>
+        <span class="model-badge">🔄 30-Day Returns</span>
+        <span class="model-badge">🤖 Recommender Engine</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2025 Blendify. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+  <script defer src="../js/main.js"></script>
+  <script defer src="../js/products.js"></script>
+  <script defer src="../js/cart.js"></script>
+</body>
+</html>

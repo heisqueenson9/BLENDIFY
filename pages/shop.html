@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Shop all Blendify high-performance portable, smart, and commercial blenders.">
+  <title>Shop – Blendify</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="../css/loader.css"/>
+  <link rel="icon" href="../public/images/favicon.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet"/>
+  <style>
+    .shop-layout { display:grid; grid-template-columns:250px 1fr; gap:48px; padding:60px 0; align-items:start; }
+    .shop-sidebar { position:sticky; top:calc(var(--nav-height)+20px); height:fit-content; }
+
+    /* Filters */
+    .filter-group { margin-bottom:32px; }
+    .filter-group h4 { font-size:.78rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-muted); margin-bottom:14px; }
+    .filter-btn { display:flex; align-items:center; justify-content:space-between; width:100%; text-align:left; padding:12px 16px; border-radius:var(--radius-sm); font-size:.88rem; font-weight:500; color:var(--black); transition:var(--transition); margin-bottom:4px; border:1px solid transparent; background:transparent; }
+    .filter-btn:hover { background:var(--gray-50); border-color:var(--gray-200); }
+    .filter-btn.active { background:var(--lime); color:var(--black); font-weight:700; border-color:rgba(0,0,0,0.1); }
+    .filter-count { font-size:.75rem; color:var(--text-muted); padding:2px 8px; background:var(--gray-100); border-radius:12px; font-weight:600; }
+    .filter-btn.active .filter-count { background:rgba(0,0,0,0.1); color:var(--black); }
+
+    /* Sort bar */
+    .sort-bar { display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; flex-wrap:wrap; gap:12px; background:var(--gray-50); padding:16px 24px; border-radius:var(--radius-md); border:1px solid var(--gray-200); }
+    .sort-bar p { font-size:.88rem; color:var(--text-muted); font-weight:500; }
+    .sort-select { padding:10px 16px; border:1px solid var(--gray-200); border-radius:var(--radius-sm); font-family:var(--font-body); font-size:.85rem; font-weight:500; outline:none; background:var(--white); cursor:pointer; }
+    .sort-select:focus { border-color:var(--lime); }
+
+    /* Shop Grid */
+    .shop-products-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+
+    /* Recommender Banner in Sidebar */
+    .recommender-banner {
+      background: linear-gradient(135deg, var(--black), #1a1a1a);
+      padding:24px;
+      border-radius:var(--radius-md);
+      color:var(--white);
+      text-align:center;
+      border:1px solid rgba(197,231,16,0.2);
+    }
+    .recommender-banner h4 { color:var(--lime); font-size:.8rem; letter-spacing:1px; margin-bottom:8px; }
+    .recommender-banner p { font-size:.85rem; line-height:1.6; color:rgba(255,255,255,0.6); margin-bottom:16px; }
+
+    /* Trending Section (Bottom) */
+    .trending-section { padding:80px 0; background:var(--gray-50); margin-top:60px; }
+
+    @media(max-width:900px) { .shop-layout{grid-template-columns:1fr;} .shop-sidebar{position:static;} .shop-products-grid{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:480px) { .shop-products-grid{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+  <div id="globalLoader" class="loader-wrapper"><div class="loader"></div></div>
+
+  <div class="announcement-bar">
+    🎉 Free shipping on all orders over 200L &nbsp;|&nbsp; <strong>BLEND10</strong> for 10% off
+    <button class="ann-close" onclick="this.parentElement.style.display='none'">×</button>
+  </div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <svg width="28" height="28" viewBox="0 0 28 28"><path d="M14 2C8 2 4 10 4 17a10 10 0 0020 0C24 10 20 2 14 2z" fill="#C5E710"/><path d="M10 18 Q14 10 18 18" stroke="#010A00" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        BLENDIFY
+      </a>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Homepage</a></li>
+        <li><a href="shop.html" class="active">Shop</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-icon-btn cart-btn" id="cartToggle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <span class="cart-badge" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header"><h3>Your Cart</h3><button onclick="closeCart()">×</button></div>
+    <div class="cart-items"></div>
+    <div class="cart-footer"></div>
+  </aside>
+
+  <div class="page-header">
+    <div class="container">
+      <h1>ALL PRODUCTS</h1>
+      <p>Premium portable, smart & commercial blenders for every lifestyle</p>
+      <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span>Shop</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="shop-layout">
+      <!-- Sidebar Filters -->
+      <aside class="shop-sidebar">
+        <div class="filter-group">
+          <h4>Categories</h4>
+          <button class="filter-btn active" onclick="filterProducts('all', this)">All Products <span class="filter-count">18</span></button>
+          <button class="filter-btn" onclick="filterProducts('portable', this)">Portable Blenders <span class="filter-count">6</span></button>
+          <button class="filter-btn" onclick="filterProducts('commercial', this)">Commercial Blenders <span class="filter-count">5</span></button>
+          <button class="filter-btn" onclick="filterProducts('smart', this)">Smart Blenders <span class="filter-count">7</span></button>
+        </div>
+        <div class="filter-group">
+          <h4>Collections</h4>
+          <button class="filter-btn" onclick="filterProducts('bestseller', this)">⭐ Best Sellers <span class="filter-count">4</span></button>
+          <button class="filter-btn" onclick="filterProducts('new', this)">🆕 New Arrivals <span class="filter-count">1</span></button>
+          <button class="filter-btn" onclick="filterProducts('sale', this)">🏷 On Sale <span class="filter-count">2</span></button>
+        </div>
+        <div class="filter-group">
+          <h4>Price Max</h4>
+          <div style="background:var(--gray-50);padding:24px;border-radius:var(--radius-md);border:1px solid var(--gray-200);text-align:center;">
+            <p style="font-size:1.4rem;font-family:var(--font-display);color:var(--black);margin-bottom:12px;" id="priceVal">600L</p>
+            <input type="range" min="0" max="600" value="600" style="width:100%;accent-color:var(--lime);cursor:pointer;" id="priceRange" oninput="document.getElementById('priceVal').textContent=this.value+'L'"/>
+            <div style="display:flex;justify-content:space-between;font-size:.75rem;color:var(--text-muted);margin-top:8px;font-weight:600;">
+              <span>0L</span><span>600L</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recommender Trigger Promo -->
+        <div class="recommender-banner">
+          <h4>🤖 SMART SUGGESTIONS</h4>
+          <p>Don't know where to start? Check out our trending products chosen by customers just like you.</p>
+          <a href="#trending" class="btn-primary" style="width:100%;justify-content:center;padding:10px;font-size:.8rem;">View Trending</a>
+        </div>
+      </aside>
+
+      <!-- Products Grid -->
+      <div>
+        <div class="sort-bar">
+          <p id="productCount">Showing 8 products</p>
+          <div style="display:flex;gap:12px;align-items:center;">
+            <input type="text" id="searchInput" placeholder="Search..." style="padding:10px 14px;border:1px solid var(--gray-200);border-radius:var(--radius-sm);font-size:.85rem;outline:none;" oninput="filterProducts(window.currentFilter, document.querySelector('.filter-btn.active'))">
+            <select class="sort-select" onchange="sortProducts(this.value)">
+              <option value="default">Sort by: Recommended</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="name">Name: A–Z</option>
+            </select>
+          </div>
+        </div>
+        <div class="shop-products-grid" id="shopGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recommender System: Trending / Best Sellers -->
+  <section class="trending-section" id="trending">
+    <div class="container">
+      <div class="section-label">Recommender System</div>
+      <h2 style="font-family:var(--font-display);font-size:2rem;letter-spacing:2px;">TRENDING THIS WEEK</h2>
+      <p style="color:var(--text-muted);font-size:.9rem;margin-top:8px;margin-bottom:32px;">The most popular items added to carts right now.</p>
+      <div class="shop-products-grid" id="trendingGrid"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2025 Blendify. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+  <!-- QUICK VIEW MODAL container (js will inject) -->
+  <div id="quickViewContainer"></div>
+
+  <script defer src="../js/main.js"></script>
+  <script defer src="../js/products.js"></script>
+  <script defer src="../js/cart.js"></script>
+  <script>
+    window.currentFilter = "all";
+    window.currentSort = "default";
+
+    function filterProducts(filter, btn) {
+      window.currentFilter = filter;
+      if(btn) {
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+      }
+      renderShopProducts(filter);
+      sortProducts(window.currentSort); // re-apply sort
+    }
+
+    function sortProducts(sort) {
+      window.currentSort = sort;
+      const grid = document.getElementById("shopGrid");
+      // Extract current visible product cards and sort them
+      let cards = Array.from(grid.querySelectorAll('.product-card'));
+      
+      const sortMap = {
+        'price-asc': (a,b) => parseFloat(a.querySelector('.price-main').innerText) - parseFloat(b.querySelector('.price-main').innerText),
+        'price-desc': (a,b) => parseFloat(b.querySelector('.price-main').innerText) - parseFloat(a.querySelector('.price-main').innerText),
+        'name': (a,b) => a.querySelector('h4').innerText.localeCompare(b.querySelector('h4').innerText),
+      };
+
+      if(sortMap[sort]) {
+        cards.sort(sortMap[sort]);
+        grid.innerHTML = '';
+        cards.forEach(c => grid.appendChild(c));
+      } else {
+        // default - re-render from base
+        renderShopProducts(window.currentFilter);
+      }
+    }
+
+    // Initialize recommender
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(() => {
+        if(typeof renderTrending === 'function') {
+          renderTrending('trendingGrid', 3);
+        }
+      }, 200);
+      
+      // Listen for hash changes to auto-filter
+      if(window.location.hash) {
+        const hash = window.location.hash.substring(1);
+        const btn = document.querySelector(`.filter-btn[onclick*="${hash}"]`);
+        if(btn) filterProducts(hash, btn);
+      }
+    });
+  </script>
+</body>
+</html>

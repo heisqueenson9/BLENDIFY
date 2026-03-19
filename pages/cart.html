@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Blendify portable blenders for healthy living">
+  <title>Cart – Blendify</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="../css/loader.css"/>
+  <link rel="icon" href="../public/images/favicon.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet"/>
+  <style>
+    .cart-page-layout { display:grid; grid-template-columns:2fr 1fr; gap:40px; padding:60px 0; }
+    .cart-items-section { }
+    .cart-table { width:100%; border-collapse:collapse; }
+    .cart-table th { text-align:left; font-weight:700; padding:12px; border-bottom:2px solid var(--gray-200); }
+    .cart-table td { padding:20px 12px; border-bottom:1px solid var(--gray-200); }
+    .cart-table img { width:60px; height:60px; border-radius:6px; object-fit:cover; }
+    .cart-item-name { font-weight:600; }
+    .cart-totals { background:var(--gray-50); padding:24px; border-radius:var(--radius-lg); border:1px solid var(--gray-200); height:fit-content; position:sticky; top:calc(var(--nav-height)+20px); }
+    .cart-totals h3 { font-family:var(--font-display); font-size:1.3rem; margin-bottom:20px; }
+    .total-row { display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--gray-200); }
+    .total-row.final { font-weight:700; font-size:1.2rem; border-bottom:none; margin-top:8px; padding-top:8px; border-top:2px solid var(--gray-200); }
+    @media(max-width:900px) { .cart-page-layout{grid-template-columns:1fr;} .cart-totals{position:static;} }
+  </style>
+</head>
+<body>
+  <div id="globalLoader" class="loader-wrapper"><div class="loader"></div></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <svg width="28" height="28" viewBox="0 0 28 28"><path d="M14 2C8 2 4 10 4 17a10 10 0 0020 0C24 10 20 2 14 2z" fill="#C5E710"/><path d="M10 18 Q14 10 18 18" stroke="#010A00" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        BLENDIFY
+      </a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <h1>YOUR CART</h1>
+      <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span>Cart</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="cart-page-layout">
+      <div class="cart-items-section">
+        <table class="cart-table" id="cartTable">
+          <thead>
+            <tr><th>Product</th><th>Price</th><th>Qty</th><th>Total</th><th></th></tr>
+          </thead>
+          <tbody id="cartBody"></tbody>
+        </table>
+      </div>
+
+      <div class="cart-totals">
+        <h3>SUMMARY</h3>
+        <div class="total-row">
+          <span>Subtotal</span>
+          <span id="subtotal">0.00L</span>
+        </div>
+        <div class="total-row">
+          <span>Shipping</span>
+          <span>Free</span>
+        </div>
+        <div class="total-row">
+          <span>Tax</span>
+          <span id="tax">0.00L</span>
+        </div>
+        <div class="total-row final">
+          <span>Total</span>
+          <span id="total">0.00L</span>
+        </div>
+        <a href="checkout.html" class="btn-primary" style="width:100%;margin-top:24px;display:block;text-align:center;padding:14px;">Proceed to Checkout →</a>
+        <a href="shop.html" class="btn-outline" style="width:100%;margin-top:12px;display:block;text-align:center;padding:14px;">Continue Shopping</a>
+      </div>
+    </div>
+  </div>
+
+  <script defer src="../js/main.js"></script>
+  <script defer src="../js/cart.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const tbody = document.getElementById("cartBody");
+      if (typeof cart !== "undefined" && cart.length > 0) {
+        tbody.innerHTML = cart.map(item => `
+          <tr>
+            <td><div class="cart-item-name">${item.name}</div></td>
+            <td>${item.price.toFixed(2)}L</td>
+            <td>
+              <input type="number" value="${item.qty}" min="1" onchange="updateQty(${item.id}, this.value - ${item.qty})" style="width:60px;padding:6px;border:1px solid var(--gray-200);border-radius:4px;"/>
+            </td>
+            <td>${(item.price * item.qty).toFixed(2)}L</td>
+            <td><button onclick="removeFromCart(${item.id});location.reload();" style="color:var(--text-muted);font-size:1.2rem;cursor:pointer;">×</button></td>
+          </tr>
+        `).join("");
+        const subtotal = getCartTotal();
+        const tax = subtotal * 0.1;
+        const total = subtotal + tax;
+        document.getElementById("subtotal").textContent = subtotal.toFixed(2) + "L";
+        document.getElementById("tax").textContent = tax.toFixed(2) + "L";
+        document.getElementById("total").textContent = total.toFixed(2) + "L";
+      } else {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:60px;color:var(--text-muted);">Your cart is empty. <a href="shop.html">Start shopping</a></td></tr>';
+      }
+    });
+  </script>
+</body>
+</html>

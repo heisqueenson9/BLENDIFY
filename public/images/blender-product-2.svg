@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" width="300" height="350">
+  <defs>
+    <linearGradient id="prod2Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C5E710;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8E9630;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Shadow -->
+  <ellipse cx="150" cy="320" rx="70" ry="15" fill="#010A00" opacity="0.1"/>
+  
+  <!-- Portable Blender Design -->
+  <g transform="translate(150, 120)">
+    <!-- Main body - cylinder -->
+    <rect x="-35" y="-50" width="70" height="100" rx="8" fill="url(#prod2Grad)" stroke="#607423" stroke-width="2"/>
+    
+    <!-- Power button (top) -->
+    <circle cx="30" cy="-35" r="6" fill="#010A00" stroke="#C5E710" stroke-width="1"/>
+    
+    <!-- USB port indicator -->
+    <rect x="-20" y="-55" width="8" height="3" fill="#607423" opacity="0.6"/>
+    
+    <!-- Portability grip -->
+    <path d="M -38 -10 Q -50 10 -38 30" fill="none" stroke="#8E9630" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+    
+    <!-- LED indicator -->
+    <circle cx="-30" cy="20" r="3" fill="#F4DF6B" opacity="0.8"/>
+    
+    <!-- Blades section indicator (bottom) -->
+    <rect x="-28" y="40" width="56" height="20" rx="4" fill="#F4DF6B" opacity="0.6" stroke="#607423" stroke-width="1"/>
+    
+    <!-- Bottom cap -->
+    <ellipse cx="0" cy="55" rx="35" ry="8" fill="#8E9630" stroke="#607423" stroke-width="1.5"/>
+    
+    <!-- Shine effect -->
+    <ellipse cx="-15" cy="-20" rx="12" ry="35" fill="#ffffff" opacity="0.15"/>
+  </g>
+  
+  <!-- Decorative leaf -->
+  <g transform="translate(60, 280) rotate(-30)">
+    <ellipse cx="0" cy="0" rx="18" ry="8" fill="#8E9630" opacity="0.3"/>
+  </g>
+</svg>

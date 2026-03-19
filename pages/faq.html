@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Blendify portable blenders for healthy living">
+  <title>FAQ – Blendify</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="../css/loader.css"/>
+  <link rel="icon" href="../public/images/favicon.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet"/>
+  <style>
+    .faq-container { max-width:800px; margin:60px auto; }
+    .faq-item { border:1px solid var(--gray-200); border-radius:var(--radius-md); margin-bottom:12px; overflow:hidden; }
+    .faq-q { padding:18px 20px; font-weight:700; font-size:.95rem; cursor:pointer; display:flex; justify-content:space-between; align-items:center; background:var(--white); transition:background .2s; }
+    .faq-q:hover { background:var(--gray-50); }
+    .faq-q.open { background:var(--lime); color:var(--black); }
+    .faq-q.open::after { content:"−"; }
+    .faq-q::after { content:"+"; font-weight:700; color:var(--lime); }
+    .faq-q.open::after { color:var(--black); }
+    .faq-a { max-height:0; overflow:hidden; transition:max-height .3s ease, padding .3s; background:var(--gray-50); font-size:.9rem; color:var(--text-muted); line-height:1.7; }
+    .faq-a.open { max-height:300px; padding:16px 20px; }
+  </style>
+</head>
+<body>
+  <div id="globalLoader" class="loader-wrapper"><div class="loader"></div></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <svg width="28" height="28" viewBox="0 0 28 28"><path d="M14 2C8 2 4 10 4 17a10 10 0 0020 0C24 10 20 2 14 2z" fill="#C5E710"/><path d="M10 18 Q14 10 18 18" stroke="#010A00" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        BLENDIFY
+      </a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <h1>FREQUENTLY ASKED QUESTIONS</h1>
+      <p>Everything you need to know about Blendify and our products</p>
+      <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span>FAQ</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="faq-container">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">How long does the blender last on a single charge?</div>
+        <div class="faq-a">Most Blendify models provide 20-30 blends per full charge, depending on the model and usage intensity. The PureSip provides around 20 smooth blends, while our Pro models offer up to 30.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">How long does it take to fully charge?</div>
+        <div class="faq-a">Our portable blenders charge via USB-C in approximately 2 hours from 0% to 100% when using a standard charger.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">Can I blend ice and frozen fruit?</div>
+        <div class="faq-a">Yes! Most Blendify models feature our 6-blade stainless steel system designed specifically to crush ice and frozen ingredients smoothly. For the smoothest results, ensure you have adequate liquid in your blend.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">Is it dishwasher safe?</div>
+        <div class="faq-a">The cup and blades are dishwasher safe (top rack recommended). The base and motor unit should be hand-washed to ensure longevity.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">What's your return policy?</div>
+        <div class="faq-a">We offer a 30-day money-back guarantee. If you're not satisfied with your purchase for any reason, return it in original condition within 30 days for a full refund, no questions asked.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">Do you offer international shipping?</div>
+        <div class="faq-a">Currently, we ship within Ghana and select African countries. International shipping is coming soon! Check your country at checkout to see if we can deliver to you.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">Is the blender loud?</div>
+        <div class="faq-a">Blendify blenders operate at around 70-75 decibels, similar to a normal conversation. While it's not silent, the sound is minimal for a portable blender and much quieter than traditional kitchen blenders.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">Can I use alternative drinks like nut milks?</div>
+        <div class="faq-a">Absolutely! Our blenders work perfectly with any liquid — whether it's almond milk, coconut milk, oat milk, regular milk, or juice. Mix and match based on your preferences!</div>
+      </div>
+    </div>
+
+    <div style="margin-top:60px;padding:40px;background:var(--gray-50);border-radius:var(--radius-lg);border:1px solid var(--gray-200);text-align:center;">
+      <h3 style="font-family:var(--font-display);font-size:1.4rem;margin-bottom:12px;">Still have questions?</h3>
+      <p style="color:var(--text-muted);margin-bottom:24px;">Our support team is here to help.</p>
+      <a href="contact.html" class="btn-primary">Contact Us</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none;padding-top:0;">
+        <span>© 2025 Blendify. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+  <script defer src="../js/main.js"></script>
+  <script>
+    function toggleFAQ(el) {
+      const q = el;
+      const a = el.nextElementSibling;
+      document.querySelectorAll(".faq-q.open").forEach(item => {
+        if (item !== q) {
+          item.classList.remove("open");
+          item.nextElementSibling.classList.remove("open");
+        }
+      });
+      q.classList.toggle("open");
+      a.classList.toggle("open");
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="sparkleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C5E710;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8E9630;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="95" fill="url(#sparkleGrad)" opacity="0.1" stroke="#C5E710" stroke-width="2"/>
+  
+  <!-- Leaf icon -->
+  <g transform="translate(100, 100)">
+    <!-- Main leaf shape -->
+    <ellipse cx="0" cy="-15" rx="25" ry="40" fill="#C5E710" stroke="#607423" stroke-width="2"/>
+    
+    <!-- Leaf vein -->
+    <path d="M 0 -55 Q 0 -20 0 25" fill="none" stroke="#607423" stroke-width="2.5"/>
+    
+    <!-- Left vein branches -->
+    <path d="M -8 -40 Q -20 -35 -18 -25" fill="none" stroke="#607423" stroke-width="1.5" opacity="0.6"/>
+    <path d="M -12 -20 Q -25 -15 -22 -5" fill="none" stroke="#607423" stroke-width="1.5" opacity="0.6"/>
+    
+    <!-- Right vein branches -->
+    <path d="M 8 -40 Q 20 -35 18 -25" fill="none" stroke="#607423" stroke-width="1.5" opacity="0.6"/>
+    <path d="M 12 -20 Q 25 -15 22 -5" fill="none" stroke="#607423" stroke-width="1.5" opacity="0.6"/>
+    
+    <!-- Shine -->
+    <ellipse cx="-10" cy="-15" rx="8" ry="12" fill="#F4DF6B" opacity="0.4"/>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Background -->
+  <circle cx="100" cy="100" r="95" fill="#C5E710" opacity="0.1" stroke="#C5E710" stroke-width="2"/>
+  
+  <!-- Quality/checkmark icon -->
+  <g transform="translate(100, 100)">
+    <!-- Shield outline -->
+    <path d="M 0 -35 L -30 -10 L -30 15 Q 0 40 0 40 Q 0 40 30 15 L 30 -10 Z" 
+          fill="none" stroke="#8E9630" stroke-width="3" stroke-linejoin="round"/>
+    
+    <!-- Checkmark -->
+    <path d="M -12 8 L -2 18 L 18 -8" fill="none" stroke="#C5E710" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

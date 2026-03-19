@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" width="300" height="350">
+  <defs>
+    <linearGradient id="productGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F4DF6B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C5E710;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Shadow -->
+  <ellipse cx="150" cy="320" rx="70" ry="15" fill="#010A00" opacity="0.1"/>
+  
+  <!-- Product Base -->
+  <g transform="translate(150, 100)">
+    <!-- Motor housing -->
+    <rect x="-35" y="-70" width="70" height="45" rx="6" fill="url(#productGrad)" stroke="#8E9630" stroke-width="1.5"/>
+    
+    <!-- Control button -->
+    <circle cx="0" cy="-50" r="8" fill="#607423" stroke="#010A00" stroke-width="1"/>
+    
+    <!-- Jar connection -->
+    <rect x="-20" y="-25" width="40" height="15" fill="#8E9630"/>
+    
+    <!-- Glass jar -->
+    <path d="M -30 -10 L -28 120 Q -28 130 -18 130 L 18 130 Q 28 130 28 120 L 30 -10" 
+          fill="#C5E710" stroke="#607423" stroke-width="2" opacity="0.9"/>
+    
+    <!-- Jar highlight -->
+    <path d="M -25 0 L -23 110 Q -23 125 -15 125" 
+          fill="none" stroke="#F4DF6B" stroke-width="3" opacity="0.4"/>
+    
+    <!-- Lid -->
+    <ellipse cx="0" cy="-12" rx="32" ry="6" fill="#8E9630" stroke="#607423" stroke-width="1"/>
+    
+    <!-- Handle -->
+    <path d="M 30 20 Q 50 30 50 70" fill="none" stroke="#8E9630" stroke-width="4" stroke-linecap="round"/>
+    
+    <!-- Smoothie inside -->
+    <path d="M -28 40 L -26 120 Q -26 128 -18 128 L 18 128 Q 26 128 26 120 L 28 40" 
+          fill="#F4DF6B" opacity="0.5"/>
+  </g>
+</svg>

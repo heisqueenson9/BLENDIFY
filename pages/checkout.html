@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Blendify portable blenders for healthy living">
+  <title>Checkout – Blendify</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="../css/loader.css"/>
+  <link rel="icon" href="../public/images/favicon.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet"/>
+  <style>
+    .checkout-layout { display:grid; grid-template-columns:2fr 1fr; gap:40px; padding:60px 0; }
+    .checkout-form { background:var(--gray-50); padding:40px; border-radius:var(--radius-lg); border:1px solid var(--gray-200); }
+    .form-section h3 { font-family:var(--font-display); font-size:1.4rem; letter-spacing:1px; margin-bottom:20px; margin-top:0; }
+    .form-section { margin-bottom:32px; padding-bottom:32px; border-bottom:1px solid var(--gray-200); }
+    .form-section:last-child { border-bottom:none; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .form-group { margin-bottom:16px; }
+    .form-group label { display:block; font-weight:700; margin-bottom:6px; font-size:.85rem; }
+    .form-group input { width:100%; padding:12px 16px; border:1px solid var(--gray-200); border-radius:var(--radius-sm); font-family:var(--font-body); outline:none; }
+    .form-group input:focus { border-color:var(--lime); }
+    .order-summary { background:var(--black); color:var(--white); padding:32px; border-radius:var(--radius-lg); height:fit-content; position:sticky; top:calc(var(--nav-height)+20px); }
+    .order-summary h3 { font-family:var(--font-display); font-size:1.3rem; letter-spacing:1px; margin-bottom:20px; margin-top:0; }
+    .order-item { display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid rgba(255,255,255,.1); }
+    .order-item:last-child { border-bottom:none; }
+    .order-total { display:flex; justify-content:space-between; font-size:1.2rem; font-weight:700; margin-top:20px; padding-top:20px; border-top:1px solid rgba(197,231,16,.3); }
+    @media(max-width:900px) { .checkout-layout{grid-template-columns:1fr;} .order-summary{position:static;} }
+  </style>
+</head>
+<body>
+  <div id="globalLoader" class="loader-wrapper"><div class="loader"></div></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <svg width="28" height="28" viewBox="0 0 28 28"><path d="M14 2C8 2 4 10 4 17a10 10 0 0020 0C24 10 20 2 14 2z" fill="#C5E710"/><path d="M10 18 Q14 10 18 18" stroke="#010A00" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        BLENDIFY
+      </a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <h1>CHECKOUT</h1>
+      <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><a href="shop.html">Shop</a><span>/</span>Checkout</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="checkout-layout">
+      <div class="checkout-form">
+        <form onsubmit="submitOrder(event)">
+          <div class="form-section">
+            <h3>SHIPPING ADDRESS</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" required/>
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" required/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" required/>
+            </div>
+            <div class="form-group">
+              <label>Address</label>
+              <input type="text" required/>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>City</label>
+                <input type="text" required/>
+              </div>
+              <div class="form-group">
+                <label>Postal Code</label>
+                <input type="text" required/>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h3>PAYMENT METHOD</h3>
+            <div class="form-group">
+              <label>Card Number</label>
+              <input type="text" placeholder="4242 4242 4242 4242" required/>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Expiry</label>
+                <input type="text" placeholder="MM/YY" required/>
+              </div>
+              <div class="form-group">
+                <label>CVC</label>
+                <input type="text" placeholder="123" required/>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width:100%;">✓ Complete Order</button>
+        </form>
+      </div>
+
+      <div class="order-summary">
+        <h3>ORDER SUMMARY</h3>
+        <div id="summaryItems"></div>
+        <div class="order-total">
+          <span>Total</span>
+          <span id="summaryTotal">0.00L</span>
+        </div>
+        <p style="font-size:.85rem;color:rgba(255,255,255,.6);margin-top:16px;line-height:1.6;">This is a demo. No actual charges will be made. Use test card 4242 4242 4242 4242.</p>
+      </div>
+    </div>
+  </div>
+
+  <script defer src="../js/main.js"></script>
+  <script defer src="../js/cart.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const summary = document.getElementById("summaryItems");
+      const total = document.getElementById("summaryTotal");
+      if (typeof cart !== "undefined" && cart.length > 0) {
+        summary.innerHTML = cart.map(item => `
+          <div class="order-item">
+            <div>${item.name} x ${item.qty}</div>
+            <div>${(item.price * item.qty).toFixed(2)}L</div>
+          </div>
+        `).join("");
+        total.textContent = getCartTotal().toFixed(2) + "L";
+      } else {
+        summary.innerHTML = '<p style="color:rgba(255,255,255,.6);">Your cart is empty</p>';
+      }
+    });
+    function submitOrder(e) {
+      e.preventDefault();
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+      alert("✓ Demo order placed!\n\nIn a real scenario, this would process the payment and send a confirmation email.");
+      localStorage.setItem("blendify_cart", "[]");
+      window.location.href = "shop.html";
+    }
+  </script>
+</body>
+</html>

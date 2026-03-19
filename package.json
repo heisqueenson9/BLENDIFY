@@ -1,0 +1,10 @@
+{
+  "name": "blendify-root",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "cd client && npm install && npm run build"
+  },
+  "dependencies": {
+    "canvas": "^3.2.1"
+  }
+}

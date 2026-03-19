@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" width="300" height="350">
+  <defs>
+    <linearGradient id="smoothieGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F4DF6B;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#C5E710;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8E9630;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Shadow -->
+  <ellipse cx="150" cy="320" rx="70" ry="15" fill="#010A00" opacity="0.1"/>
+  
+  <!-- Blender Bottle -->
+  <g transform="translate(150, 110)">
+    <!-- Bottle cap -->
+    <rect x="-18" y="-60" width="36" height="12" rx="2" fill="#607423" stroke="#010A00" stroke-width="1"/>
+    
+    <!-- Cap ridges -->
+    <line x1="-12" y1="-60" x2="-12" y2="-52" stroke="#010A00" stroke-width="0.5" opacity="0.5"/>
+    <line x1="0" y1="-60" x2="0" y2="-52" stroke="#010A00" stroke-width="0.5" opacity="0.5"/>
+    <line x1="12" y1="-60" x2="12" y2="-52" stroke="#010A00" stroke-width="0.5" opacity="0.5"/>
+    
+    <!-- Bottle neck -->
+    <path d="M -18 -48 L -15 -30 L 15 -30 L 18 -48" fill="#C5E710" stroke="#607423" stroke-width="1.5"/>
+    
+    <!-- Main bottle body -->
+    <path d="M -25 -30 L -27 80 Q -27 95 -15 95 L 15 95 Q 27 95 27 80 L 25 -30" 
+          fill="url(#smoothieGrad)" stroke="#607423" stroke-width="2.5"/>
+    
+    <!-- Smoothie liquid (gradient) -->
+    <path d="M -24 10 L -25 80 Q -25 92 -15 92 L 15 92 Q 25 92 25 80 L 26 10" 
+          fill="#C5E710" opacity="0.7"/>
+    
+    <!-- Bottle highlight/shine -->
+    <path d="M -22 -25 L -20 50 Q -20 85 -12 90" 
+          fill="none" stroke="#F4DF6B" stroke-width="3" opacity="0.3" stroke-linecap="round"/>
+    
+    <!-- Bottom base -->
+    <ellipse cx="0" cy="95" rx="28" ry="6" fill="#8E9630" stroke="#607423" stroke-width="1"/>
+  </g>
+  
+  <!-- Decorative elements -->
+  <circle cx="70" cy="150" r="8" fill="#F4DF6B" opacity="0.2"/>
+  <circle cx="230" cy="200" r="6" fill="#C5E710" opacity="0.2"/>
+</svg>

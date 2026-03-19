@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Blendify portable blenders for healthy living">
+  <title>Careers – Blendify</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="../css/loader.css"/>
+  <link rel="icon" href="../public/images/favicon.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet"/>
+  <style>
+    .careers-hero { padding:80px 0; text-align:center; }
+    .careers-hero h2 { font-family:var(--font-display); font-size:2.4rem; letter-spacing:2px; margin-bottom:16px; }
+    .careers-hero p { font-size:1.05rem; color:var(--text-muted); max-width:600px; margin:0 auto 40px; }
+    .jobs-grid { display:grid; grid-template-columns:1fr; gap:24px; margin:60px 0; }
+    .job-card { background:var(--gray-50); padding:32px; border-radius:var(--radius-lg); border:1px solid var(--gray-200); transition:var(--transition); }
+    .job-card:hover { border-color:var(--lime); box-shadow:var(--shadow-md); }
+    .job-title { font-family:var(--font-display); font-size:1.3rem; letter-spacing:1px; margin-bottom:8px; }
+    .job-meta { font-size:.85rem; color:var(--text-muted); margin-bottom:12px; }
+    .job-desc { color:var(--text-muted); line-height:1.6; margin:16px 0; }
+    @media(max-width:768px) { .careers-hero h2 { font-size:1.8rem; } }
+  </style>
+</head>
+<body>
+  <div id="globalLoader" class="loader-wrapper"><div class="loader"></div></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <svg width="28" height="28" viewBox="0 0 28 28"><path d="M14 2C8 2 4 10 4 17a10 10 0 0020 0C24 10 20 2 14 2z" fill="#C5E710"/><path d="M10 18 Q14 10 18 18" stroke="#010A00" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        BLENDIFY
+      </a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <h1>CAREERS</h1>
+      <p>Join our mission to make healthy living effortless for everyone</p>
+      <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span>Careers</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="careers-hero">
+      <h2>Work With Us</h2>
+      <p>We're a fast-growing team passionate about sustainable, portable health solutions. We're looking for talented people to join our mission.</p>
+    </div>
+
+    <div class="jobs-grid">
+      <div class="job-card">
+        <div class="job-title">Product Designer</div>
+        <div class="job-meta">📍 Accra, Ghana · Full-time</div>
+        <p class="job-desc">We're looking for a talented product designer to help us create the next generation of portable blenders. Experience with industrial design and user research is a plus.</p>
+        <button class="btn-outline" onclick="alert('Coming soon! Submit inquiries to careers@blendify.store')">Learn More</button>
+      </div>
+
+      <div class="job-card">
+        <div class="job-title">Marketing Manager</div>
+        <div class="job-meta">📍 Accra, Ghana · Full-time</div>
+        <p class="job-desc">Help us grow our brand across Africa. You'll manage campaigns, oversee social media, and build our community. Digital marketing experience required.</p>
+        <button class="btn-outline" onclick="alert('Coming soon! Submit inquiries to careers@blendify.store')">Learn More</button>
+      </div>
+
+      <div class="job-card">
+        <div class="job-title">Supply Chain Analyst</div>
+        <div class="job-meta">📍 Accra, Ghana · Full-time</div>
+        <p class="job-desc">Optimize our supply chain and ensure timely, cost-effective delivery of products across the continent. Experience with logistics and data analysis required.</p>
+        <button class="btn-outline" onclick="alert('Coming soon! Submit inquiries to careers@blendify.store')">Learn More</button>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:80px;padding:60px 40px;background:var(--black);border-radius:var(--radius-lg);color:var(--white);">
+      <h3 style="font-family:var(--font-display);font-size:1.8rem;letter-spacing:2px;margin-bottom:16px;">Don't See Your Role?</h3>
+      <p style="margin-bottom:24px;color:rgba(255,255,255,.7);">Send us your resume and a note about what you're passionate about.</p>
+      <a href="mailto:careers@blendify.store" class="btn-primary" style="display:inline-block;">careers@blendify.store</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none;padding-top:0;">
+        <span>© 2025 Blendify. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+  <script defer src="../js/main.js"></script>
+</body>
+</html>
