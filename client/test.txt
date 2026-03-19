@@ -1,0 +1,18 @@
+ Volume in drive C has no label.
+ Volume Serial Number is D475-D434
+
+ Directory of c:\Users\USER\Downloads\Telegram Desktop\blendify\blendify\client
+
+18/03/2026  06:44 pm    <DIR>          .
+18/03/2026  04:36 pm    <DIR>          ..
+18/03/2026  07:08 am               854 index.html
+18/03/2026  07:59 am    <DIR>          node_modules
+18/03/2026  07:59 am            68,995 package-lock.json
+18/03/2026  02:05 pm               479 package.json
+18/03/2026  11:14 am    <DIR>          public
+18/03/2026  07:19 am    <DIR>          src
+18/03/2026  06:44 pm                 0 test.txt
+18/03/2026  02:04 pm                80 vercel.json
+18/03/2026  07:07 am               277 vite.config.js
+               6 File(s)         70,685 bytes
+               5 Dir(s)  22,884,913,152 bytes free

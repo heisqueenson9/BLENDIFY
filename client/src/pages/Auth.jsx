@@ -1,83 +1,91 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { BLENDER_IMAGES } from '../data/constants';
 
 function Auth({ mode = 'login' }) {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
-  const { login, register, user, loading, error, setError } = useAuth();
+  const { login, signup, user } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user) navigate('/');
-    setError('');
-  }, [user, navigate, setError, mode]);
+  }, [user, navigate]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (mode === 'login') {
-      await login(formData.email, formData.password);
+      // Simulate login for Demo
+      login({ fullName: formData.email.split('@')[0], email: formData.email });
     } else {
-      await register(formData.name, formData.email, formData.password);
+      signup({ fullName: formData.name, email: formData.email });
     }
+    navigate('/');
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-left">
-        <div className="auth-left-content">
-          <span className="hero-eyebrow">🌿 Blend with us</span>
-          <h2>JOIN THE <br /><span>BLEND FAMILY</span></h2>
-          <p>Get exclusive recipes, early access to new product drops, and member-only discounts.</p>
-          <div className="auth-img-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
-            {BLENDER_IMAGES.slice(0, 4).map((src, i) => (
-              <div key={i} className="auth-img-tile" style={{ borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
-                <img src={src} alt="Blender Lifestyle" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+    <div className="auth-page" style={{ 
+      minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', 
+      background: 'var(--black)', padding: '40px 20px' 
+    }}>
+      <div className="auth-form-box card-luxury" style={{ maxWidth: '450px', width: '100%', padding: '40px', borderRadius: '24px' }}>
+        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', marginBottom: '8px' }}>
+          {mode === 'login' ? 'WELCOME BACK' : 'CREATE ACCOUNT'}
+        </h1>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '32px' }}>
+          {mode === 'login' ? 'Login to access your orders.' : 'Join for exclusive healthy living tips.'}
+        </p>
 
-      <div className="auth-right">
-        <div className="auth-form-box">
-          <h1>{mode === 'login' ? 'WELCOME BACK' : 'CREATE ACCOUNT'}</h1>
-          <p>{mode === 'login' ? 'Login to manage your orders and profile.' : 'Join today for 10% off your first order.'}</p>
-
-          {error && <div className="error-msg">{error}</div>}
-
-          <form onSubmit={handleSubmit}>
-            {mode === 'register' && (
-              <div className="form-group">
-                <span className="form-label">Full Name</span>
-                <input name="name" value={formData.name} onChange={handleChange} className="form-input" required />
-              </div>
-            )}
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          {mode === 'register' && (
             <div className="form-group">
-              <span className="form-label">Email Address</span>
-              <input name="email" value={formData.email} onChange={handleChange} className="form-input" type="email" required />
+              <label className="form-label" style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)' }}>Full Name</label>
+              <input 
+                name="name" 
+                value={formData.name} 
+                onChange={handleChange} 
+                style={{ width: '100%', padding: '14px', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff' }} 
+                required 
+              />
             </div>
-            <div className="form-group">
-              <span className="form-label">Password</span>
-              <input name="password" value={formData.password} onChange={handleChange} className="form-input" type="password" required />
-            </div>
-
-            <button className="btn-primary" style={{ width: '100%', justifyContent: 'center', padding: '16px' }} disabled={loading}>
-              {loading ? 'Processing...' : (mode === 'login' ? 'Log In →' : 'Sign Up →')}
-            </button>
-          </form>
-
-          <div className="auth-switch">
-             {mode === 'login' ? (
-                <>New to Blendify? <Link to="/register">Create an account</Link></>
-             ) : (
-                <>Already have an account? <Link to="/login">Log in here</Link></>
-             )}
+          )}
+          <div className="form-group">
+            <label className="form-label" style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)' }}>Email Address</label>
+            <input 
+              name="email" 
+              value={formData.email} 
+              onChange={handleChange} 
+              type="email" 
+              style={{ width: '100%', padding: '14px', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff' }} 
+              required 
+            />
           </div>
+          <div className="form-group">
+            <label className="form-label" style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)' }}>Password</label>
+            <input 
+              name="password" 
+              value={formData.password} 
+              onChange={handleChange} 
+              type="password" 
+              style={{ width: '100%', padding: '14px', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff' }} 
+              required 
+            />
+          </div>
+
+          <button className="btn-primary" style={{ width: '100%', justifyContent: 'center', padding: '16px', marginTop: '12px' }}>
+            {mode === 'login' ? 'Log In →' : 'Sign Up →'}
+          </button>
+        </form>
+
+        <div className="auth-switch" style={{ marginTop: '24px', textAlign: 'center', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
+           {mode === 'login' ? (
+              <>Don't have an account? <Link to="/register" style={{ color: 'var(--lime)', textDecoration: 'none' }}>Sign up</Link></>
+           ) : (
+              <>Already member? <Link to="/login" style={{ color: 'var(--lime)', textDecoration: 'none' }}>Log in</Link></>
+           )}
         </div>
       </div>
     </div>

@@ -48,4 +48,37 @@ export const STATIC_PRODUCTS = [
   { id: '20', name: 'CloudSoft Smart', price: 420, oldPrice: null, badge: 'Smart', badgeClass: 'badge-new', stars: '★★★★★', reviews: 130, image: getBlenderImage(4), bg: '#fafafa', category: 'smart', tags: ['smart','trending'], description: 'Whisper-quiet blending technology paired with smart app-sync diagnostics.', inStock: true, popularity: 7 },
 ];
 
+export const SIMULATED_RIDERS = [
+  { 
+    id: 'R1', 
+    name: "Kwame Mensah", 
+    icon: "riderMale", 
+    vehicle: "Honda Motorbike", 
+    plate: "GW-455-24", 
+    price: 15,
+    rating: 4.8,
+    phone: "024-455-6789"
+  },
+  { 
+    id: 'R2', 
+    name: "Kofi Boateng", 
+    icon: "riderMale", 
+    vehicle: "Yamaha Scooter", 
+    plate: "GT-321-22", 
+    price: 12,
+    rating: 4.9,
+    phone: "055-321-9876"
+  },
+  { 
+    id: 'R3', 
+    name: "Ama Serwaa", 
+    icon: "riderFemale", 
+    vehicle: "Electric Bike", 
+    plate: "GA-001-23", 
+    price: 10,
+    rating: 4.7,
+    phone: "020-001-2233"
+  }
+];
+
 export const PAYSTACK_PUBLIC_KEY = 'pk_test_ce666fcela8b872796c5c';

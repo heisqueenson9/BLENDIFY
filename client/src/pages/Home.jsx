@@ -1,85 +1,68 @@
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '../components/Icon';
+import RecommendationSection from '../components/RecommendationSection';
+import { showToast } from '../components/Toast';
 
 function Home() {
+  const [email, setEmail] = useState('');
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if (!email) return;
+    showToast("Subscribed successfully.", "success");
+    setEmail('');
+  };
+
   return (
-    <div className="home-page">
+    <div className="home-page" style={{ background: 'var(--black)', color: '#fff' }}>
       {/* ── HERO ──────────────────────────────────────────────── */}
       <section className="hero" style={{ 
-        background: 'var(--black)',
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        position: 'relative',
-        borderBottom: '1px solid rgba(255,255,255,0.05)'
+        minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', 
+        textAlign: 'center', position: 'relative', borderBottom: '1px solid rgba(255,255,255,0.05)',
+        background: 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(10,10,10,1) 100%)'
       }}>
-        <div className="hero-content" style={{ maxWidth: '900px', width: '100%' }}>
-          <span className="hero-eyebrow" data-fade style={{ transitionDelay: '0.1s' }}>
-            <Icon name="leaf" color="var(--lime)" size={18} style={{ marginRight: '8px' }} />
-            New Collection 2025
+        <div className="hero-content" style={{ maxWidth: '1000px', width: '100%', padding: '0 20px' }}>
+          <span 
+            className="hero-eyebrow" 
+            data-fade="up"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(197, 231, 16, 0.1)', color: 'var(--lime)', padding: '8px 16px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 600, marginBottom: '32px' }}
+          >
+            <Icon name="leaf" size={16} />
+            Next-Gen Portable Blenders
           </span>
           <h1 
-            data-fade 
-            style={{ fontSize: 'clamp(3.5rem, 8vw, 6.5rem)', lineHeight: '0.9', marginBottom: '24px', transitionDelay: '0.3s' }}
+            data-fade="left" 
+            className="delay-100"
+            style={{ fontSize: 'clamp(3.5rem, 8vw, 7.5rem)', lineHeight: '0.9', marginBottom: '24px', fontFamily: 'var(--font-display)', letterSpacing: '-2px' }}
           >
-            BLEND YOUR <span className="accent">HEALTH</span><br />ON THE GO
+            BLEND THE <span style={{ color: 'var(--lime)', fontStyle: 'italic' }}>FUTURE</span><br />OF NUTRITION
           </h1>
           <p 
-            data-fade
-            className="hero-desc" 
-            style={{ fontSize: '1.25rem', margin: '0 auto 40px', color: 'rgba(255,255,255,0.85)', maxWidth: '650px', transitionDelay: '0.5s' }}
+            data-fade="right"
+            className="delay-200"
+            style={{ fontSize: '1.25rem', margin: '0 auto 48px', color: 'rgba(255,255,255,0.6)', maxWidth: '650px', lineHeight: '1.6' }}
           >
-            Experience the power of portability. Fresh, nutritious smoothies anywhere, anytime. Perfect for gym, travel, or work.
+            Your health shouldn't be stationary. Experience the world's most powerful portable blender with 20,000 RPM precision.
           </p>
-          <div data-fade className="hero-ctas" style={{ justifyContent: 'center', transitionDelay: '0.7s' }}>
-            <Link to="/shop" className="btn-primary" style={{ padding: '20px 50px', fontSize: '1.1rem' }}>
-              Get Started →
+          <div data-fade="up" className="hero-ctas delay-300" style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
+            <Link to="/shop" className="btn-primary" style={{ padding: '20px 48px', fontSize: '1.1rem', borderRadius: '16px' }}>
+               Explore Shop <Icon name="rocket" size={20} style={{ marginLeft: '8px' }} />
             </Link>
-            <a 
-              href="https://www.youtube.com/results?search_query=portable+blender+demonstration" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="btn-ghost" 
-              style={{ padding: '20px 50px', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '8px' }}
-            >
-              Watch Demo 
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </a>
           </div>
         </div>
       </section>
 
-      {/* ── FEATURES ──────────────────────────────────────────── */}
-      <section className="features-strip">
-        {[
-          { icon: 'shipping', title: 'Fast Shipping', desc: 'Free on orders over 200L' },
-          { icon: 'quality', title: 'Premium Quality', desc: 'BPA-Free materials' },
-          { icon: 'support', title: '24/7 Support', desc: 'Ready to help anytime' },
-          { icon: 'returns', title: '30-Day Returns', desc: 'Hassle-free process' }
-        ].map((f, i) => (
-          <div 
-            key={i} 
-            data-fade
-            style={{ transitionDelay: `${i * 0.1}s` }}
-            className="feat-card"
-          >
-            <div className="feat-icon" style={{ background: 'rgba(197, 231, 16, 0.1)', color: 'var(--lime)', padding: '12px', borderRadius: '12px' }}>
-              <Icon name={f.icon} size={28} />
-            </div>
-            <div><h4>{f.title}</h4><p>{f.desc}</p></div>
-          </div>
-        ))}
+      {/* ── DYNAMIC RECOMMENDATIONS ───────────────────────────── */}
+      <section className="container" style={{ padding: '60px 20px' }} data-fade="zoom">
+         <RecommendationSection title="Tailored For You" />
       </section>
 
       {/* ── TRUST SECTION ───────────────────────────────────── */}
-      <section className="container" style={{ padding: '120px 0' }}>
+      <section className="container" style={{ padding: '80px 20px 140px' }}>
         <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-          <span className="section-label" data-fade>World Class Standards</span>
-          <h2 className="section-title" data-fade style={{ transitionDelay: '0.2s' }}>ENGINEERED FOR EXCELLENCE</h2>
+          <span className="section-label" data-fade="up">World Class Engineering</span>
+          <h2 className="section-title" data-fade="up" style={{ transitionDelay: '0.2s', fontSize: '3.5rem' }}>BUILT TO LAST</h2>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '32px' }}>
@@ -90,17 +73,36 @@ function Home() {
            ].map((item, i) => (
              <div 
                key={i}
-               data-fade
-               style={{ transitionDelay: `${i * 0.2}s` }}
-               className="card-luxury hover-lift"
+               data-fade="up"
+               className={`card-luxury hover-lift delay-${(i + 1) * 200}`}
+               style={{ padding: '40px', borderRadius: '32px' }}
              >
-                <div style={{ color: 'var(--lime)', marginBottom: '20px' }}>
-                   <Icon name={item.icon} size={32} />
+                <div style={{ color: 'var(--lime)', marginBottom: '24px' }}>
+                   <Icon name={item.icon} size={36} />
                 </div>
-                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', marginBottom: '16px' }}>{item.title}</h3>
-                <p style={{ color: 'var(--text-muted)' }}>{item.desc}</p>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', marginBottom: '16px' }}>{item.title}</h3>
+                <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>{item.desc}</p>
              </div>
            ))}
+        </div>
+      </section>
+
+      {/* ── NEWSLETTER ────────────────────────────────────────── */}
+      <section style={{ padding: '100px 24px', background: 'var(--lime)', textAlign: 'center' }}>
+        <div className="container">
+          <h2 data-fade="up" style={{ fontFamily: 'var(--font-display)', fontSize: '2.4rem', color: 'var(--black)', letterSpacing: '2px' }}>NEVER MISS A DROP</h2>
+          <p data-fade="up" className="delay-100" style={{ color: 'rgba(1,10,0,0.7)', margin: '16px auto 32px', maxWidth: '500px' }}>Join our community for exclusive early access to new collections and healthy recipes.</p>
+          <form onSubmit={handleSubscribe} data-fade="up" className="delay-200" style={{ maxWidth: '500px', margin: '0 auto', display: 'flex', gap: '12px' }}>
+            <input 
+              type="email" 
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email" 
+              style={{ flex: 1, padding: '16px 24px', borderRadius: 'var(--radius-md)', border: 'none', background: '#fff' }} 
+            />
+            <button type="submit" className="btn-primary" style={{ background: 'var(--black)', color: 'white' }}>Subscribe</button>
+          </form>
         </div>
       </section>
     </div>
