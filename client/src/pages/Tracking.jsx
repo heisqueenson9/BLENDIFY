@@ -153,7 +153,7 @@ const Tracking = () => {
         </div>
 
         {/* Grid: Map + Details */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '40px' }}>
+        <div className="tracking-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '40px' }}>
            
            {/* Left Column: Rider & Stats */}
            <div data-fade="right" className="delay-200" style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
@@ -215,7 +215,7 @@ const Tracking = () => {
            </div>
 
            {/* Right Column: Live Map */}
-           <div data-fade="left" className="delay-300 card-luxury" style={{ padding: '12px', borderRadius: '32px', height: '600px', position: 'relative', overflow: 'hidden' }}>
+           <div data-fade="left" className="delay-300 card-luxury card-map" style={{ padding: '12px', borderRadius: '32px', height: '600px', position: 'relative', overflow: 'hidden' }}>
               <div className="map-container" style={{ width: '100%', height: '100%', borderRadius: '20px', overflow: 'hidden' }}>
                  <iframe 
                     title="Live Tracking Map"
@@ -234,7 +234,7 @@ const Tracking = () => {
 
         {/* 💬 Chat Overlay */}
         {showChat && (
-          <div style={{ position: 'fixed', right: '40px', bottom: '40px', width: '380px', height: '520px', background: '#0a0a0a', borderRadius: '32px', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 40px 100px rgba(0,0,0,0.8)', zIndex: 1000, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+          <div className="chat-popup-overlay" style={{ position: 'fixed', right: '40px', bottom: '40px', width: '380px', height: '520px', background: '#0a0a0a', borderRadius: '32px', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 40px 100px rgba(0,0,0,0.8)', zIndex: 1000, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
              <div style={{ padding: '24px', background: 'rgba(255,255,255,0.03)', borderBottom: '1px solid rgba(255,255,255,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                    <div style={{ width: '40px', height: '40px', borderRadius: '12px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.03)' }}>

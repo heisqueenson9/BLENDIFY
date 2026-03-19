@@ -62,7 +62,7 @@ const Checkout = () => {
       <div className="container" style={{ maxWidth: '1200px' }}>
         <h1 data-fade="right" style={{ fontFamily: 'var(--font-display)', fontSize: '4rem', marginBottom: '48px' }}>Final <span style={{ color: 'var(--lime)' }}>Step</span></h1>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 400px', gap: '48px', alignItems: 'start' }} className="checkout-container">
+        <div className="checkout-container" style={{ display: 'grid', gridTemplateColumns: '1fr 400px', gap: '48px', alignItems: 'start' }}>
           
           {/* Left: Forms */}
           <div data-fade="right" className="delay-100" style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>

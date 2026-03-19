@@ -123,7 +123,7 @@ export default function ChatSage() {
           boxShadow: '0 10px 40px rgba(197, 231, 16, 0.3)',
           transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
         }}
-        className="hover-lift"
+        className="hover-lift chat-toggle"
       >
         {isOpen ? (
           <span style={{ fontSize: '2rem', color: 'var(--black)' }}>✕</span>
@@ -136,7 +136,7 @@ export default function ChatSage() {
 
       {/* Chat Window Container */}
       {isOpen && (
-        <div style={{
+        <div className="chat-window" style={{
           position: 'fixed', bottom: '120px', right: '40px',
           width: '400px', height: '600px', background: 'var(--white)',
           borderRadius: '32px', boxShadow: '0 20px 80px rgba(0,0,0,0.2)',

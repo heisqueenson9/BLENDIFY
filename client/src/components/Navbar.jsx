@@ -22,25 +22,25 @@ const Navbar = () => {
     <nav className="navbar" style={{ 
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000, 
       background: 'rgba(10,10,10,0.95)', backdropFilter: 'blur(16px)',
-      borderBottom: '1px solid rgba(255,255,255,0.05)', height: '80px',
-      display: 'flex', alignItems: 'center', transition: 'all 0.3s ease'
+      borderBottom: '1px solid rgba(255,255,255,0.05)', height: '80px'
     }}>
-      <div className="container" style={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div className="container" style={{ width: '100%' }}>
         
-        {/* LOGO */}
-        <Link to="/" onClick={() => setIsMenuOpen(false)} className="brand" style={{ fontSize: '1.8rem', fontWeight: 800, textDecoration: 'none', color: '#fff', letterSpacing: '-1px' }}>
-          BLEND<span style={{ color: 'var(--lime)' }}>IFY</span>
-        </Link>
+        {/* LEFT: LOGO */}
+        <div className="nav-left">
+          <Link to="/" onClick={() => setIsMenuOpen(false)} className="brand" style={{ fontSize: '1.8rem', fontWeight: 800, textDecoration: 'none', color: '#fff', letterSpacing: '-1px' }}>
+            BLEND<span style={{ color: 'var(--lime)' }}>IFY</span>
+          </Link>
+        </div>
 
-        {/* LINKS (Desktop Center) */}
-        <div className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
+        {/* CENTER: LINKS (Desktop Only) */}
+        <div className={`nav-center nav-links ${isMenuOpen ? 'open' : ''}`}>
           <Link to="/shop" onClick={() => setIsMenuOpen(false)}>Shop</Link>
           <Link to="/smart-blenders" onClick={() => setIsMenuOpen(false)}>Smart</Link>
           <Link to="/commercial-blenders" onClick={() => setIsMenuOpen(false)}>Pro</Link>
           {user && (
             <>
               <Link to="/orders" onClick={() => setIsMenuOpen(false)}>My Orders</Link>
-              <Link to="/wallet" onClick={() => setIsMenuOpen(false)} className="mobile-only">Wallet (GHS {wallet.toFixed(2)})</Link>
               <Link to="/profile" onClick={() => setIsMenuOpen(false)} className="mobile-only">Profile</Link>
               <button onClick={handleLogout} className="mobile-logout mobile-only" style={{ background: 'none', border: 'none', color: '#fff', textAlign: 'left', padding: '16px 0', fontSize: '1rem', cursor: 'pointer' }}>Logout</button>
             </>
@@ -48,17 +48,17 @@ const Navbar = () => {
           {!user && <Link to="/login" onClick={() => setIsMenuOpen(false)} className="mobile-only">Login</Link>}
         </div>
 
-        {/* ACTIONS (Desktop Right) */}
-        <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+        {/* RIGHT: ACTIONS */}
+        <div className="nav-right">
           {user && (
-            <Link to="/wallet" className="desktop-wallet" style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(197, 231, 16, 0.1)', padding: '8px 20px', borderRadius: '40px', border: '1px solid rgba(197, 231, 16, 0.2)', textDecoration: 'none' }}>
+            <Link to="/wallet" className="wallet-badge" style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(197, 231, 16, 0.1)', padding: '8px 20px', borderRadius: '40px', border: '1px solid rgba(197, 231, 16, 0.2)', textDecoration: 'none' }} id="walletBalance">
               <span style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--lime)', letterSpacing: '0.5px' }}>GHS {wallet.toFixed(2)}</span>
             </Link>
           )}
 
           {user ? (
             <div className="desktop-user" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <Link to="/orders" style={{ background: 'transparent', color: '#fff', fontSize: '0.8rem', opacity: 0.7, textDecoration: 'none', fontWeight: 600 }}>Orders</Link>
+                <Link to="/orders" className="desktop-only" style={{ background: 'transparent', color: '#fff', fontSize: '0.8rem', opacity: 0.7, textDecoration: 'none', fontWeight: 600 }}>Orders</Link>
                 <Link to="/profile" style={{ width: '36px', height: '36px', background: 'var(--lime)', color: 'var(--black)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.9rem', textDecoration: 'none' }}>
                   {user.fullName.charAt(0).toUpperCase()}
                 </Link>

@@ -18,8 +18,7 @@ function Home() {
     <div className="home-page" style={{ background: 'var(--black)', color: '#fff' }}>
       {/* ── HERO ──────────────────────────────────────────────── */}
       <section className="hero" style={{ 
-        minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', 
-        textAlign: 'center', position: 'relative', borderBottom: '1px solid rgba(255,255,255,0.05)',
+        position: 'relative', borderBottom: '1px solid rgba(255,255,255,0.05)',
         background: 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(10,10,10,1) 100%)'
       }}>
         <div className="hero-content" style={{ maxWidth: '1000px', width: '100%', padding: '0 20px' }}>
